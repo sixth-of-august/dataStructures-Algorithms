@@ -26,13 +26,13 @@ int main(){
     mergeSort(array, buffer, N);
     auto t1 = steady_clock::now(); // конечная точка отсчёта
     
-    arrInFile("newFile.txt", array, N);
+    arrInFile("newFile.txt", array, N); // запись в файл массива
 
     // преобразование времени (обычно наносекунды) в миллисекунды
     // delta - объект, хранящий время
     auto delta = duration_cast<milliseconds>(t1 - t0);
     cout << "time delta (milliseconds) " << delta.count();
     
-    delete[] array;
+    delete[] array; // очищаем память
     return 0;
 }

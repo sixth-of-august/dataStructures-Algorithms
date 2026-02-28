@@ -1,0 +1,44 @@
+## минимальная версия CMake
+cmake_minimum_required(VERSION 3.16)
+
+## имя проекта
+set(CMAKE_CXX_COMPILER "g++.exe")
+set(CMAKE_C_COMPILER "gcc.exe")
+project(testTask)
+
+## устанавливаем стандарт C++
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+## добавляем библиотеку
+add_library(my_lib STATIC workWithArrays.cpp)
+target_include_directories(my_lib PUBLIC .)
+
+## добавляем исполняемый файл
+add_executable(main mainTask.cpp)
+target_link_libraries(main my_lib)  # Связывает main с my_lib
+
+# 1. Включить тестирование
+enable_testing()
+
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
+
+# для Windows нужно отключить некоторые опции
+if(WIN32)
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+endif()
+
+FetchContent_MakeAvailable(googletest)
+
+# 2. Создать исполняемый файл теста
+add_executable(runTests test_main.cpp)
+
+# 3. Линковать библиотеки GTest
+target_link_libraries(runTests PRIVATE GTest::gtest GTest::gtest_main)
+
+# 4. Автоматическое обнаружение тестов (рекомендуется)
+include(GoogleTest)
