@@ -12,7 +12,7 @@ using namespace std;
     */
 float* createArray(size_t n){
     return new float[n](); //возвращаем инициализированный массив
-};
+}
 
 
 /** @brief заполнить массив указанным диапазоном значений  
@@ -58,6 +58,7 @@ float* fillSorted(size_t n){
  * @param arr сортируемый массив
  * @param buff буффер для временного хранения
  * @param size размер массива
+ * @exception выбрасывает исключении типа invalid_argument в случае пустого массива или буффера
  */
 void mergeSort(float *arr, float *buff, size_t size){
     if(arr == nullptr || buff == nullptr){
@@ -138,6 +139,7 @@ void arrInFile(string fileName, float* array, size_t size){
  * @param array массив, в котором проходит проверка
  * @param size размер массива
  * @return true или false
+ * @exception выбрасывает исключение вида invalid_argument, если массив пустой
  */
 bool isSorted(float* array, size_t size){
     if(array == nullptr){ // проверка на пустой указатель
@@ -149,4 +151,19 @@ bool isSorted(float* array, size_t size){
             return false;
         }
     } return true;
+}
+
+
+/** @brief функция поиска элемента в массиве
+ * @param array массив, в котором происходит поиск
+ * @param size размер массива
+ * @param target искомая цель
+ * @return индекс возвращаемого элемента
+ */
+size_t linearSearch(float* array, size_t size, float target){
+    for(size_t i = 0; i < size; i++){
+        if(array[i] == target){
+            return array[i];
+        }
+    } return -1;
 }
