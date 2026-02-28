@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <ctime>
+#include <random>
 #include <fstream>
 #include <iostream>
 #include "workWithArrays.hpp" // заголовочный файл
@@ -26,10 +27,14 @@ float* fillArrayD(size_t n, int min, int max){
     float* somePointer; // указатель на массив 
     somePointer = new float[n]; // выделение памяти
 
+    random_device rd; 
+    mt19937 gen(rd());
+    uniform_int_distribution<> distrib(min, max);
+
     // заполнение случайным количеством чисел из диапазона
     for(size_t i = 0; i < n; i++){
-        somePointer[i] =  min + (static_cast<float>(rand()) / RAND_MAX) * (max-min);
-    }
+        somePointer[i] = distrib(gen);
+    }// не использовать rand, так как он ограничивает диапазон случайных чисел
 
     return somePointer;
 }
@@ -101,30 +106,16 @@ void mergeSort(float *arr, float *buff, size_t size){
 }
 
 
-/** @brief вывод функции на экран
- * @param array массив, который нужно вывести
- * @param size размер массива
- */
-void printArr(float* array, size_t size){
-    cout << "Ваш массив: " << endl;
-    for(size_t i = 0; i < size; i++){
-    cout << array[i] << " "; 
-    }
-    cout << endl;
-    }
-
-
 /** @brief функция записи массива в файл
  * @param fileName имя файла
  * @param array массив, который будет записываться
  * @param size размер массива
  */
-void arrInFile(string fileName, float* array, size_t size){
+void arrInFile(string& const fileName, float* array, size_t size){
     ofstream openFile; // переменная файла
     openFile.open(fileName); // открываем файл по имени
 
     if(openFile.is_open() == true){ // если файл открыт
-        openFile << "Ваш массив: " << endl;;
         for(size_t i = 0; i < size; i++){
         openFile << array[i] << " "; }
         openFile << endl; 
@@ -135,7 +126,7 @@ void arrInFile(string fileName, float* array, size_t size){
 }
 
 
-/** @brief функция проверки на сортированный массив
+/** @brief функция проверки на сортированный массив по возрастанию
  * @param array массив, в котором проходит проверка
  * @param size размер массива
  * @return true или false
@@ -144,7 +135,7 @@ void arrInFile(string fileName, float* array, size_t size){
 bool isSorted(float* array, size_t size){
     if(array == nullptr){ // проверка на пустой указатель
         throw invalid_argument("Массив не может быть пустым");
-    }
+    } 
 
     for(size_t i = 1; i < size; i++){
         if(array[i - 1] > array[i]){
@@ -153,17 +144,3 @@ bool isSorted(float* array, size_t size){
     } return true;
 }
 
-
-/** @brief функция поиска элемента в массиве
- * @param array массив, в котором происходит поиск
- * @param size размер массива
- * @param target искомая цель
- * @return индекс возвращаемого элемента
- */
-size_t linearSearch(float* array, size_t size, float target){
-    for(size_t i = 0; i < size; i++){
-        if(array[i] == target){
-            return array[i];
-        }
-    } return -1;
-}

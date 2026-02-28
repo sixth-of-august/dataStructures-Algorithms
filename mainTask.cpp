@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <chrono>
+#include <string>
 #include "workWithArrays.hpp" // модуль программы
 
 /* автор программы - Лесков Н.Г
@@ -17,6 +18,7 @@ int main(){
     // задаём указатель массива, буффера обмена и количество переменных в нём
     size_t N = 100000;
     float* array, *buffer;
+    string fileName = "bestArray.txt";
     
     array = createArray(N); // инициализируем массив
     buffer = createArray(N);
@@ -26,7 +28,7 @@ int main(){
     mergeSort(array, buffer, N);
     auto t1 = steady_clock::now(); // конечная точка отсчёта
     
-    arrInFile("newFile.txt", array, N); // запись в файл массива
+    arrInFile(fileName, array, N); // запись в файл массива
 
     // преобразование времени (обычно наносекунды) в миллисекунды
     // delta - объект, хранящий время

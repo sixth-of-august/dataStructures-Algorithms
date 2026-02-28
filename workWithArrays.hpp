@@ -39,7 +39,14 @@ void mergeSort(float *arr, float *buff, size_t size);
  * @param array массив, который нужно вывести
  * @param size размер массива
  */
-void printArr(float* array, size_t size);
+template <typename E>
+void printArr(E* array, size_t size){
+    cout << "Ваш массив: " << endl;
+    for(size_t i = 0; i < size; i++){
+    cout << array[i] << " "; 
+    }
+    cout << endl;
+    }
 
 
 /** @brief функция записи массива в файл
@@ -47,7 +54,7 @@ void printArr(float* array, size_t size);
  * @param array массив, который будет записываться
  * @param size размер массива
  */
-void arrInFile(std::string fileName, float* array, size_t size);
+void arrInFile(std::string& const fileName, float* array, size_t size);
 
 
 /** @brief функция проверки на сортированный массив
@@ -59,10 +66,17 @@ void arrInFile(std::string fileName, float* array, size_t size);
 bool isSorted(float* array, size_t size);
 
 
-/** @brief функция поиска элемента в массиве
+/** @brief функция последовательного поиска элемента в массиве
  * @param array массив, в котором происходит поиск
  * @param size размер массива
  * @param target искомая цель
  * @return индекс возвращаемого элемента
  */
-size_t linearSearch(float* array, size_t size, float target);
+template <typename E>
+size_t linearSearch(E* array, size_t size, E target){
+    for(size_t i = 0; i < size; i++){
+        if(array[i] == target){
+            return array[i];
+        }
+    } return -1; // функция возвращает максимальное число, потому что переменная типа size_t может хранить только положительные значения и происходит переполнение
+}
