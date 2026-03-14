@@ -38,7 +38,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(runTests test_main.cpp)
 
 # 3. Линковать библиотеки GTest
-target_link_libraries(runTests PRIVATE GTest::gtest GTest::gtest_main)
+target_link_libraries(runTests PRIVATE GTest::gtest GTest::gtest_main my_lib)
 
 # 4. Автоматическое обнаружение тестов (рекомендуется)
 include(GoogleTest)

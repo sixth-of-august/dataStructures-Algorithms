@@ -41,11 +41,11 @@ void mergeSort(float *arr, float *buff, size_t size);
  */
 template <typename E>
 void printArr(E* array, size_t size){
-    cout << "Ваш массив: " << endl;
+    std::cout << "Ваш массив: " << std::endl;
     for(size_t i = 0; i < size; i++){
-    cout << array[i] << " "; 
+    std::cout << array[i] << " "; 
     }
-    cout << endl;
+    std::cout << std::endl;
     }
 
 
@@ -54,7 +54,7 @@ void printArr(E* array, size_t size){
  * @param array массив, который будет записываться
  * @param size размер массива
  */
-void arrInFile(std::string& const fileName, float* array, size_t size);
+void arrInFile(const std::string&  fileName, float* array, size_t size);
 
 
 /** @brief функция проверки на сортированный массив
@@ -70,7 +70,8 @@ bool isSorted(float* array, size_t size);
  * @param array массив, в котором происходит поиск
  * @param size размер массива
  * @param target искомая цель
- * @return индекс возвращаемого элемента
+ * @return индекс возвращаемого элемента (функция возвращает максимальное число, потому что переменная типа size_t может хранить только положительные значения и происходит переполнение
+)
  */
 template <typename E>
 size_t linearSearch(E* array, size_t size, E target){
@@ -79,4 +80,27 @@ size_t linearSearch(E* array, size_t size, E target){
             return array[i];
         }
     } return -1; // функция возвращает максимальное число, потому что переменная типа size_t может хранить только положительные значения и происходит переполнение
+}
+
+
+/** @brief функция бинарного поиска в отсортированном массиве
+ * @param array остортированный массив в котором выполняется поиска
+ * @param size // размер массива
+ * @param target // искомый элемент
+ */
+template <typename E>
+size_t binarSearch(E* array, size_t size, E target){
+    size_t left = 0, right = size; // левая и правая границы поиска
+    size_t middle = 0; // середина поиска
+
+    while(left < right - 1){
+        middle = (left + right) / 2; //устанавливаем середину поиска
+    
+        if(array[middle] < target){ // если искомое число находится в правой части 
+            left = middle; // сужаем с левой стороны
+        } else right = middle; // сужаем с правой стороны
+    }
+
+    return -1; // возвращает максимальное значение типа size_t
+
 }

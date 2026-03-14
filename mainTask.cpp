@@ -17,24 +17,31 @@ int main(){
 
     // задаём указатель массива, буффера обмена и количество переменных в нём
     size_t N = 100000;
+    float number = 1500.0; // число для поиска
     float* array, *buffer;
     string fileName = "bestArray.txt";
     
     array = createArray(N); // инициализируем массив
-    buffer = createArray(N);
-    array = fillArrayD(N, 10.5, 99.5);
+    buffer = createArray(N); // создаём буфер для файла
+    array = fillSorted(N); // заполнение массива отсртированным
+    array[N - 1] = number;
 
     auto t0 = steady_clock::now(); // начинаем отсчёт времени выполнения участка кода
-    mergeSort(array, buffer, N);
+    linearSearch(array, N, number);
     auto t1 = steady_clock::now(); // конечная точка отсчёта
-    
     arrInFile(fileName, array, N); // запись в файл массива
+
 
     // преобразование времени (обычно наносекунды) в миллисекунды
     // delta - объект, хранящий время
     auto delta = duration_cast<milliseconds>(t1 - t0);
-    cout << "time delta (milliseconds) " << delta.count();
+    cout << "time delta (milliseconds) " << delta.count() << endl;
+
+
+    // проверка бинарного поиска
+    cout << format("Искомое число {}, находится на {} месте", number, binarSearch(array, N, number));
     
     delete[] array; // очищаем память
+    delete[] buffer; // очищаем буфер
     return 0;
 }

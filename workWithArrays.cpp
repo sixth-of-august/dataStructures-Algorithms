@@ -111,7 +111,7 @@ void mergeSort(float *arr, float *buff, size_t size){
  * @param array массив, который будет записываться
  * @param size размер массива
  */
-void arrInFile(string& const fileName, float* array, size_t size){
+void arrInFile(const string& fileName, float* array, size_t size){
     ofstream openFile; // переменная файла
     openFile.open(fileName); // открываем файл по имени
 
@@ -143,4 +143,3 @@ bool isSorted(float* array, size_t size){
         }
     } return true;
 }
-
