@@ -8,7 +8,7 @@
 текст задания - https://github.com/ivtipm/Data-structures-and-algorithms/blob/main/current_plans/2026/2026_part_1.md*/
 
 using namespace std;
-using namespace chrono;
+using namespace chrono; // библиотека времени
 
 int main(){
 
